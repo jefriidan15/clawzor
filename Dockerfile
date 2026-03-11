@@ -8,4 +8,8 @@ RUN git clone https://github.com/L13N6/clawzor.git .
 
 RUN chmod +x setup.sh
 
-CMD bash -c "./setup.sh && clawzor start"
+COPY start.sh /app/start.sh
+
+RUN chmod +x start.sh
+
+CMD ["bash","start.sh"]
