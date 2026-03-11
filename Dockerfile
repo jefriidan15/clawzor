@@ -1,13 +1,20 @@
 FROM ubuntu:22.04
 
-RUN apt update && apt install -y curl git bash nodejs npm
+ENV DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /root
+RUN apt update && apt install -y \
+    curl \
+    git \
+    bash \
+    nodejs \
+    npm
 
-RUN git clone https://github.com/L13N6/clawzor.git
+WORKDIR /app
 
-WORKDIR /root/clawzor
+RUN git clone https://github.com/L13N6/clawzor.git .
 
 RUN chmod +x setup.sh
 
-CMD bash -c "./setup.sh && clawzor start && tail -f /dev/null"
+RUN ./setup.sh
+
+CMD ["bash","-c","npx openclaw gateway"]
